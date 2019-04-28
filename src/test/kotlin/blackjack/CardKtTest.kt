@@ -47,7 +47,9 @@ internal class CardKtTest {
             Pair(11, listOf(Card(Suit.CLUB, Ranking.TEN), Card(Suit.SPADE, Ranking.ACE))),
             Pair(11, listOf(Card(Suit.DIAMOND, Ranking.FOUR), Card(Suit.HEART, Ranking.SEVEN))),
             Pair(17, listOf(Card(Suit.HEART, Ranking.EIGHT), Card(Suit.CLUB, Ranking.NINE))),
-            Pair(18, listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.NINE)))
+            Pair(18, listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.NINE))),
+            Pair(28, listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.NINE), Card(Suit.DIAMOND, Ranking.KING))),
+            Pair(17, listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.ACE), Card(Suit.DIAMOND, Ranking.SEVEN)))
         )
     }
 }

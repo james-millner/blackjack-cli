@@ -35,9 +35,7 @@ fun createDeckOfCards(): List<Card> =
         Ranking.values().map { rank -> Card(suit, rank) }
     }
 
-fun List<Card>.containsAce() = this.any { it.rank == Ranking.ACE }
-
-fun List<Card>.getHandScore(aceHighCard: Boolean) = this.map{ card ->
+fun List<Card>.getHandScore(aceHighCard: Boolean) = this.stream().mapToInt { card ->
     when (card.rank) {
         Ranking.ACE -> {
             if (aceHighCard)

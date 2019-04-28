@@ -49,7 +49,9 @@ fun playHand(hand: MutableList<Card>, blackJack: Blackjack, house: Boolean): Int
                     gameInProgress = false
                 }
 
-                totalScore = if (scores[0] > scores[1]) {
+                scores.sortedDescending()
+
+                totalScore = if(isBust(scores[0])) {
                     scores[0]
                 } else {
                     scores[1]
@@ -101,7 +103,7 @@ fun playHand(hand: MutableList<Card>, blackJack: Blackjack, house: Boolean): Int
 fun determineWinner(playerScore: Int, houseScore: Int) =
     when {
         playerScore > houseScore || (isBust(houseScore) && !isBust(playerScore)) -> GameResult.PLAYER_WINS.name
-        houseScore > playerScore || (!isBust(houseScore) && isBust(playerScore))  -> GameResult.HOUSE_WINS.name
+        houseScore > playerScore || (!isBust(houseScore) && isBust(playerScore)) -> GameResult.HOUSE_WINS.name
         else -> GameResult.TIE.name
     }
 
@@ -123,11 +125,9 @@ fun createScoreConsoleOutput(scores: List<Int>): String {
 fun getAllScores(hand: List<Card>): Set<Int> =
     setOf(hand.getHandScore(false), hand.getHandScore(true))
 
-fun isBust(score: Int) = getGameStateFromPotentialScores(score) == GameState.BUST &&
-        getGameStateFromPotentialScores(score) == GameState.BUST
+fun isBust(score: Int) = getGameStateFromPotentialScores(score) == GameState.BUST
 
-fun isBlackjack(score: Int) = getGameStateFromPotentialScores(score) == GameState.BLACKJACK &&
-        getGameStateFromPotentialScores(score) == GameState.BLACKJACK
+fun isBlackjack(score: Int) = getGameStateFromPotentialScores(score) == GameState.BLACKJACK
 
 fun houseWinningHand(score: Int) = score in 17..21
 

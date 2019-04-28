@@ -48,7 +48,8 @@ internal class BlackJackFunctionsKtTest {
             Pair(2, listOf(Card(Suit.CLUB, Ranking.TEN), Card(Suit.SPADE, Ranking.ACE))),
             Pair(1, listOf(Card(Suit.DIAMOND, Ranking.FOUR), Card(Suit.HEART, Ranking.SEVEN))),
             Pair(1, listOf(Card(Suit.HEART, Ranking.EIGHT), Card(Suit.CLUB, Ranking.NINE))),
-            Pair(2, listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.ACE)))
+            Pair(2, listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.ACE))),
+            Pair(2, listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.ACE), Card(Suit.DIAMOND, Ranking.KING)))
         )
     }
 
@@ -64,7 +65,8 @@ internal class BlackJackFunctionsKtTest {
             Pair("11/21", listOf(Card(Suit.CLUB, Ranking.TEN), Card(Suit.SPADE, Ranking.ACE))),
             Pair("11", listOf(Card(Suit.DIAMOND, Ranking.FOUR), Card(Suit.HEART, Ranking.SEVEN))),
             Pair("17", listOf(Card(Suit.HEART, Ranking.EIGHT), Card(Suit.CLUB, Ranking.NINE))),
-            Pair("10/20", listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.ACE)))
+            Pair("10/20", listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.ACE))),
+            Pair("20", listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.ACE), Card(Suit.DIAMOND, Ranking.KING)))
         )
     }
 
