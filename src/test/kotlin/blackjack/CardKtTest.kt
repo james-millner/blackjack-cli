@@ -28,11 +28,11 @@ internal class CardKtTest {
 
         val blackjack = Blackjack(createDeckOfCards())
 
-        val expectedCard = blackjack.deckOfCards[0]
-        val actualCard = blackjack.dealCard()
-
-        assertEquals(expectedCard, actualCard)
+        assertEquals(blackjack.deckOfCards[0], blackjack.dealCard())
         assertEquals(51, blackjack.deckOfCards.size)
+
+        assertEquals(blackjack.deckOfCards[0], blackjack.dealCard())
+        assertEquals(50, blackjack.deckOfCards.size)
     }
 
     @ParameterizedTest

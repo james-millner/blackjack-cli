@@ -37,30 +37,23 @@ fun createDeckOfCards(): List<Card> =
 
 fun List<Card>.containsAce() = this.any { it.rank == Ranking.ACE }
 
-fun List<Card>.getHandScore(aceHighCard: Boolean): Int {
-    var score = 0
-
-    this.forEach { card ->
-        val cardScore = when (card.rank) {
-            Ranking.ACE -> {
-                if (aceHighCard)
-                    11
-                else
-                    1
-            }
-            Ranking.TWO -> 2
-            Ranking.THREE -> 3
-            Ranking.FOUR -> 4
-            Ranking.FIVE -> 5
-            Ranking.SIX -> 6
-            Ranking.SEVEN -> 7
-            Ranking.EIGHT -> 8
-            Ranking.NINE -> 9
-            Ranking.TEN, Ranking.JACK, Ranking.QUEEN, Ranking.KING -> 10
+fun List<Card>.getHandScore(aceHighCard: Boolean) = this.map{ card ->
+    when (card.rank) {
+        Ranking.ACE -> {
+            if (aceHighCard)
+                11
+            else
+                1
         }
-
-        score += cardScore
+        Ranking.TWO -> 2
+        Ranking.THREE -> 3
+        Ranking.FOUR -> 4
+        Ranking.FIVE -> 5
+        Ranking.SIX -> 6
+        Ranking.SEVEN -> 7
+        Ranking.EIGHT -> 8
+        Ranking.NINE -> 9
+        Ranking.TEN, Ranking.JACK, Ranking.QUEEN, Ranking.KING -> 10
     }
+}.sum()
 
-    return score
-}

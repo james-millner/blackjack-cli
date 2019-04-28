@@ -55,7 +55,7 @@ internal class BlackJackFunctionsKtTest {
     @ParameterizedTest
     @MethodSource("cardProviderForConsoleOut")
     fun `correct score possibilities are outputed correctly`(testData: Pair<Int, List<Card>>) {
-        assertEquals(testData.first, createScoreConsoleOutput(getAllScores(testData.second)))
+        assertEquals(testData.first, createScoreConsoleOutput(getAllScores(testData.second).toList()))
     }
 
     fun cardProviderForConsoleOut(): Stream<Pair<String, List<Card>>> {
@@ -68,4 +68,23 @@ internal class BlackJackFunctionsKtTest {
         )
     }
 
+    @ParameterizedTest
+    @MethodSource("cardProviderForWinners")
+    fun `The winner is determined successfully`(testData: Pair<GameResult, Pair<Int, Int>>) {
+
+        val expectedGameResult = testData.first
+        val (playerScore, houseScore) = testData.second
+
+        assertEquals(expectedGameResult.name, determineWinner(playerScore, houseScore))
+    }
+
+    fun cardProviderForWinners(): Stream<Pair<GameResult, Pair<Int, Int>>> {
+        return Stream.of(
+            Pair(GameResult.HOUSE_WINS, Pair(10, 19)),
+            Pair(GameResult.TIE, Pair(15, 15)),
+            Pair(GameResult.PLAYER_WINS, Pair(18, 17)),
+            Pair(GameResult.PLAYER_WINS, Pair(21, 25)),
+            Pair(GameResult.TIE, Pair(21, 21))
+        )
+    }
 }

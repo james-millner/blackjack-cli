@@ -52,7 +52,9 @@ class InitializeBlackjack : CliktCommand() {
         echo("House: $houseScore")
         echo("----------------------------------------------------------------------------------------------------")
 
-        determineWinner(playerScore, houseScore)
+        val result = determineWinner(playerScore, houseScore)
+
+        echo(result.replace("_", " "))
 
         echo("----------------------------------------------------------------------------------------------------")
     }
