@@ -12,3 +12,7 @@ The challenge was to build a single player blackjack game that runs in a termina
 ### To Run 
 
 1. `make` - Cleans, Packages(including running tests) and starts the game.
+
+
+### Example Game
+![Example Game](example-game.png)
