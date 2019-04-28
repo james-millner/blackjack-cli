@@ -94,9 +94,9 @@ fun playHand(hand: MutableList<Card>, blackJack: Blackjack, house: Boolean): Int
 }
 
 fun determineWinner(playerScore: Int, houseScore: Int){
-    if(!isBust(playerScore) && playerScore > houseScore) {
+    if((!isBust(playerScore) || isBust(houseScore)) && playerScore > houseScore) {
         TermUi.echo("Player Wins!")
-    } else if(!isBust(houseScore) && houseScore > playerScore) {
+    } else if((!isBust(houseScore) || isBust(playerScore)) && houseScore > playerScore) {
         TermUi.echo("House Wins!")
     } else if(houseScore == playerScore) {
         TermUi.echo("Tie! ")
@@ -125,11 +125,11 @@ fun getAllScores(hand: List<Card>): List<Int> {
     }
 }
 
-fun isBust(score: Int) = getGameStateFromPotentialScores(score).equals(GameState.BUST) &&
-        getGameStateFromPotentialScores(score).equals(GameState.BUST)
+fun isBust(score: Int) = getGameStateFromPotentialScores(score) == GameState.BUST &&
+        getGameStateFromPotentialScores(score) == GameState.BUST
 
-fun isBlackjack(score: Int) = getGameStateFromPotentialScores(score).equals(GameState.BLACKJACK) &&
-        getGameStateFromPotentialScores(score).equals(GameState.BLACKJACK)
+fun isBlackjack(score: Int) = getGameStateFromPotentialScores(score) == GameState.BLACKJACK &&
+        getGameStateFromPotentialScores(score) == GameState.BLACKJACK
 
 fun houseWinningHand(score: Int) = score in 17..21
 

@@ -4,7 +4,6 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.output.TermUi.echo
 import java.util.concurrent.TimeUnit
 
-
 class InitializeBlackjack : CliktCommand() {
 
     private var deckOfCards = createDeckOfCards().shuffled()
@@ -34,6 +33,10 @@ class InitializeBlackjack : CliktCommand() {
         echo("Your hand:")
 
         val playerScore = playHand(playerHand, blackJack, false)
+
+        if(isBust(playerScore)) {
+            return
+        }
 
         TimeUnit.SECONDS.sleep(1)
 
