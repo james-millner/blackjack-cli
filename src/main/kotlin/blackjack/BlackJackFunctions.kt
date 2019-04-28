@@ -93,12 +93,12 @@ fun playHand(hand: MutableList<Card>, blackJack: Blackjack, house: Boolean): Int
     return totalScore
 }
 
-fun determineWinner(playerScore: Int, houseScore: Int){
-    if((!isBust(playerScore) || isBust(houseScore)) && playerScore > houseScore) {
+fun determineWinner(playerScore: Int, houseScore: Int) {
+    if ((!isBust(playerScore) || isBust(houseScore)) && playerScore > houseScore) {
         TermUi.echo("Player Wins!")
-    } else if((!isBust(houseScore) || isBust(playerScore)) && houseScore > playerScore) {
+    } else if ((!isBust(houseScore) || isBust(playerScore)) && houseScore > playerScore) {
         TermUi.echo("House Wins!")
-    } else if(houseScore == playerScore) {
+    } else if (houseScore == playerScore) {
         TermUi.echo("Tie! ")
     }
 }

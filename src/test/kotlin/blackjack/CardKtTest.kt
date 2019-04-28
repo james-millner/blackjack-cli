@@ -1,13 +1,10 @@
 package blackjack
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import org.junit.jupiter.params.provider.ValueSource
 import java.util.stream.Stream
 import java.util.stream.Stream.of
 
@@ -46,11 +43,11 @@ internal class CardKtTest {
 
     fun cardProvider(): Stream<Pair<Int, List<Card>>> {
         return of(
-            Pair(14 ,listOf(Card(Suit.CLUB, Ranking.TEN),Card(Suit.DIAMOND, Ranking.FOUR))),
-            Pair(11 ,listOf(Card(Suit.CLUB, Ranking.TEN),Card(Suit.SPADE, Ranking.ACE))),
-            Pair(11 ,listOf(Card(Suit.DIAMOND, Ranking.FOUR),Card(Suit.HEART, Ranking.SEVEN))),
-            Pair(17 ,listOf(Card(Suit.HEART, Ranking.EIGHT),Card(Suit.CLUB, Ranking.NINE))),
-            Pair(18 ,listOf(Card(Suit.CLUB, Ranking.NINE),Card(Suit.DIAMOND, Ranking.NINE)))
+            Pair(14, listOf(Card(Suit.CLUB, Ranking.TEN), Card(Suit.DIAMOND, Ranking.FOUR))),
+            Pair(11, listOf(Card(Suit.CLUB, Ranking.TEN), Card(Suit.SPADE, Ranking.ACE))),
+            Pair(11, listOf(Card(Suit.DIAMOND, Ranking.FOUR), Card(Suit.HEART, Ranking.SEVEN))),
+            Pair(17, listOf(Card(Suit.HEART, Ranking.EIGHT), Card(Suit.CLUB, Ranking.NINE))),
+            Pair(18, listOf(Card(Suit.CLUB, Ranking.NINE), Card(Suit.DIAMOND, Ranking.NINE)))
         )
     }
 }

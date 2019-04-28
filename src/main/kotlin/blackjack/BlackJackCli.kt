@@ -34,7 +34,7 @@ class InitializeBlackjack : CliktCommand() {
 
         val playerScore = playHand(playerHand, blackJack, false)
 
-        if(isBust(playerScore)) {
+        if (isBust(playerScore)) {
             return
         }
 
