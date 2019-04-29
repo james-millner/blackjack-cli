@@ -51,7 +51,7 @@ fun playHand(hand: MutableList<Card>, blackJack: Blackjack, house: Boolean): Int
 
                 scores.sortedDescending()
 
-                totalScore = if(isBust(scores[0])) {
+                totalScore = if(!isBust(scores[0]) && scores[0] > scores[1] ) {
                     scores[0]
                 } else {
                     scores[1]
@@ -88,10 +88,8 @@ fun playHand(hand: MutableList<Card>, blackJack: Blackjack, house: Boolean): Int
                 TermUi.echo("Stick[s] or twist[t]?")
 
                 when (readLine()) {
-                    "s" -> {
-                        gameInProgress = false
-                    }
-                    else -> hand.add(blackJack.dealCard())
+                    "t" -> hand.add(blackJack.dealCard())
+                    else -> gameInProgress = false
                 }
             }
         }
