@@ -34,7 +34,12 @@ class InitializeBlackjack : CliktCommand() {
 
         val playerScore = playHand(playerHand, blackJack, false)
 
+        if(isBlackjack(playerScore)) {
+            echo("Blackjack!")
+        }
+
         if (isBust(playerScore)) {
+            echo("Bust!")
             return
         }
 
@@ -46,6 +51,14 @@ class InitializeBlackjack : CliktCommand() {
         TimeUnit.SECONDS.sleep(1)
 
         val houseScore = playHand(houseHand, blackJack, true)
+
+        if(isBlackjack(houseScore)) {
+            echo("Blackjack!")
+        }
+
+        if (isBust(houseScore)) {
+            echo("House Bust!")
+        }
 
         echo("----------------------------------------------------------------------------------------------------")
         echo("Player Score: $playerScore")

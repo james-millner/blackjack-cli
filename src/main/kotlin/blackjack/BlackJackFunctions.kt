@@ -1,6 +1,6 @@
 package blackjack
 
-import com.github.ajalt.clikt.output.TermUi
+import com.github.ajalt.clikt.output.TermUi.echo
 
 enum class GameState {
     BUST,
@@ -16,8 +16,8 @@ enum class GameResult {
 
 data class Blackjack(var deckOfCards: List<Card>) {
     fun dealCard(): Card {
-        val card = deckOfCards[0]
-        deckOfCards = deckOfCards.slice(IntRange(1, deckOfCards.size - 1))
+        val card = deckOfCards.first()
+        deckOfCards = deckOfCards.drop(1)
         return card
     }
 }
@@ -30,72 +30,42 @@ fun playHand(hand: MutableList<Card>, blackJack: Blackjack, house: Boolean): Int
         val scores = getAllScores(hand).toList()
         val output = createScoreConsoleOutput(scores)
 
-        TermUi.echo(output)
-        TermUi.echo("$hand")
+        echo(output)
+        echo("$hand")
 
-        when {
-            scores.size == 2 -> {
-                if (isBust(scores[0]) && isBust(scores[1])) {
-                    TermUi.echo("Bust!")
-                    gameInProgress = false
-                }
+        totalScore = getHandScore(scores)
+        gameInProgress = shouldTurnContinue(totalScore, house)
 
-                if (isBlackjack(scores[0]) || isBlackjack(scores[1])) {
-                    TermUi.echo("Blackjack!")
-                    gameInProgress = false
-                }
+        if(!house && gameInProgress) {
 
-                if (house && (houseWinningHand(scores[0]) || houseWinningHand(scores[1]))) {
-                    gameInProgress = false
-                }
+            echo("Stick[s] or twist[t]?")
 
-                scores.sortedDescending()
-
-                totalScore = if(!isBust(scores[0]) && scores[0] > scores[1] ) {
-                    scores[0]
-                } else {
-                    scores[1]
-                }
-
+            when (readLine()) {
+                "t" -> hand.add(blackJack.dealCard())
+                else -> gameInProgress = false
             }
-            scores.size == 1 -> {
-                val score = scores.first()
-
-                if (isBust(score)) {
-                    TermUi.echo("Bust!")
-                    gameInProgress = false
-                }
-
-                if (isBlackjack(score)) {
-                    TermUi.echo("Blackjack!")
-                    gameInProgress = false
-                }
-
-                if (house && houseWinningHand(score)) {
-                    gameInProgress = false
-                }
-
-                totalScore = score
-
-            }
-        }
-
-        if (gameInProgress) {
-
-            if (house) {
-                hand.add(blackJack.dealCard())
-            } else {
-                TermUi.echo("Stick[s] or twist[t]?")
-
-                when (readLine()) {
-                    "t" -> hand.add(blackJack.dealCard())
-                    else -> gameInProgress = false
-                }
-            }
+        } else {
+            hand.add(blackJack.dealCard())
         }
     }
 
     return totalScore
+}
+
+fun getHandScore(scores: List<Int>): Int =
+    when {
+        scores.size == 2 -> {
+            val (highScore, lowScore) = scores.sortedDescending()
+            determineCorrectScoreToTake(highScore, lowScore)
+        }
+        else -> scores.first()
+    }
+
+
+fun determineCorrectScoreToTake(highScore: Int, lowScore: Int) = if(!isBust(highScore) && highScore > lowScore ) {
+    highScore
+} else {
+    lowScore
 }
 
 fun determineWinner(playerScore: Int, houseScore: Int) =
@@ -107,7 +77,7 @@ fun determineWinner(playerScore: Int, houseScore: Int) =
 
 
 fun createScoreConsoleOutput(scores: List<Int>): String {
-    val playerScoreAceLow = scores[0]
+    val playerScoreAceLow = scores.first()
 
     val sb = StringBuilder()
     sb.append(playerScoreAceLow)
@@ -122,6 +92,13 @@ fun createScoreConsoleOutput(scores: List<Int>): String {
 
 fun getAllScores(hand: List<Card>): Set<Int> =
     setOf(hand.getHandScore(false), hand.getHandScore(true))
+
+fun shouldTurnContinue(score: Int, housePlaying: Boolean): Boolean = when {
+        isBust(score) -> false
+        isBlackjack(score) -> false
+        housePlaying && houseWinningHand(score) -> false
+        else -> true
+    }
 
 fun isBust(score: Int) = getGameStateFromPotentialScores(score) == GameState.BUST
 

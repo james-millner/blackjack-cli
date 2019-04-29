@@ -89,4 +89,46 @@ internal class BlackJackFunctionsKtTest {
             Pair(GameResult.TIE, Pair(21, 21))
         )
     }
+
+    @ParameterizedTest
+    @MethodSource("scorePairings")
+    fun `determineScore returns the correct value we expect from a list of integer scores`(testData: Pair<Int, Pair<Int, Int>>) {
+        val (highScore, lowScore) = testData.second
+        assertEquals(testData.first, determineCorrectScoreToTake(highScore, lowScore))
+    }
+
+    fun scorePairings(): Stream<Pair<Int, Pair<Int, Int>>> {
+        return Stream.of(
+            Pair(18, Pair(28, 18)),
+            Pair(21, Pair(21, 11)),
+            Pair(21, Pair(21, 3)),
+            Pair(19, Pair(19, 9)),
+            Pair(16, Pair(16, 6)),
+            Pair(15, Pair(15, 5)),
+            Pair(14, Pair(14, 4)),
+            Pair(9, Pair(9, 7))
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("handPairings")
+    fun `getHandscore returns the correct score based of a list of possible scores`(testData: Pair<Int, Pair<Int, Int>>) {
+        val (scoreOne, scoreTwo) = testData.second
+        val scoresList = listOf(scoreOne, scoreTwo)
+
+        assertEquals(testData.first, getHandScore(scoresList))
+    }
+
+    fun handPairings(): Stream<Pair<Int, Pair<Int, Int>>> {
+        return Stream.of(
+            Pair(11, Pair(10, 11)),
+            Pair(11, Pair(11, 10)),
+            Pair(9, Pair(9, 9)),
+            Pair(10, Pair(10, 10)),
+            Pair(8, Pair(8, 8)),
+            Pair(15, Pair(15, 5)),
+            Pair(14, Pair(14, 4)),
+            Pair(9, Pair(9, 7))
+        )
+    }
 }
