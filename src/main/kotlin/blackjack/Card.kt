@@ -26,7 +26,7 @@ enum class Ranking {
 
 data class Card(val suit: Suit, val rank: Ranking) {
     override fun toString(): String {
-        return "${this.rank} - ${this.suit}"
+        return "${this.rank}-${this.suit}"
     }
 }
 
